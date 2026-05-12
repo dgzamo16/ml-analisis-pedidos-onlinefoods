@@ -29,4 +29,4 @@ de decisiones estratégicas del negocio.
 
 ## Contexto
 Trabajo de grado · Seminario de Machine Learning en Tiempos de Datos  
-Corporación Universitaria Remington · 2024
+Corporación Universitaria Remington · 2025
