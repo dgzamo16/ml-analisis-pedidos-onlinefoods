@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+  .dash-header { padding: 1.5rem 0 1rem; border-bottom: 0.5px solid var(--color-border-tertiary); margin-bottom: 1.5rem; }
+  .dash-title { font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 4px; }
+  .dash-sub { font-size: 13px; color: var(--color-text-secondary); margin: 0; }
+  .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+  .metric { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem; }
+  .metric-label { font-size: 12px; color: var(--color-text-secondary); margin: 0 0 4px; }
+  .metric-value { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin: 0; }
+  .section-title { font-size: 14px; font-weight: 500; color: var(--color-text-secondary); margin: 0 0 12px; }
+  .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+  .chart-block { }
+  .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 10px; font-size: 12px; color: var(--color-text-secondary); }
+  .legend span { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .clusters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+  .cluster-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem; }
+  .cluster-badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: var(--border-radius-md); margin-bottom: 10px; }
+  .cluster-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 6px; }
+  .cluster-detail { font-size: 12px; color: var(--color-text-secondary); margin: 0 0 3px; }
+  .cluster-benefit { font-size: 11px; margin-top: 8px; padding: 6px 8px; border-radius: var(--border-radius-md); }
+  @media (max-width: 500px) { .charts-grid { grid-template-columns: 1fr; } .clusters { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+  
+<h2 class="sr-only">Dashboard interactivo del análisis de segmentación de clientes OnlineFoods con K-Means clustering</h2>
+
+
+<div class="dash-header">
+  <p class="dash-title">Segmentación de clientes — OnlineFoods</p>
+  <p class="dash-sub">K-Means Clustering · Bangalore, India · Trabajo de grado · Remington 2025</p>
+</div>
+
+<div class="metrics">
+  <div class="metric"><p class="metric-label">Registros analizados</p><p class="metric-value">388</p></div>
+  <div class="metric"><p class="metric-label">Variables usadas</p><p class="metric-value">9</p></div>
+  <div class="metric"><p class="metric-label">Grupos (clusters)</p><p class="metric-value">3</p></div>
+  <div class="metric"><p class="metric-label">Cliente más frecuente</p><p class="metric-value">23 años</p></div>
+</div>
+
+<div class="charts-grid">
+  <div class="chart-block">
+    <p class="section-title">Distribución por edad</p>
+    <div class="legend">
+      <span><span class="legend-dot" style="background:#3266ad;"></span>Clientes por edad</span>
+    </div>
+    <div style="position: relative; width: 100%; height: 200px;">
+      <canvas id="ageChart" role="img" aria-label="Gráfico de barras de distribución de clientes por edad. La edad 23 años es la más frecuente.">Los clientes de 23 años son los más frecuentes, seguidos de 22 y 24 años.</canvas>
+    </div>
+  </div>
+  <div class="chart-block">
+    <p class="section-title">Distribución por ocupación</p>
+    <div class="legend">
+      <span><span class="legend-dot" style="background:#3266ad;"></span>Estudiantes</span>
+      <span><span class="legend-dot" style="background:#73726c;"></span>Empleados</span>
+      <span><span class="legend-dot" style="background:#d85a30;"></span>Independientes</span>
+      <span><span class="legend-dot" style="background:#1d9e75;"></span>Amas de casa</span>
+    </div>
+    <div style="position: relative; width: 100%; height: 200px;">
+      <canvas id="occChart" role="img" aria-label="Gráfico de torta de ocupación. Estudiantes son la mayoría con 51.5%, empleados 27.8%, independientes 13.4%, amas de casa 7.3%.">Estudiantes 51.5%, Empleados 27.8%, Independientes 13.4%, Amas de casa 7.3%.</canvas>
+    </div>
+  </div>
+  <div class="chart-block">
+    <p class="section-title">Distribución por ingreso mensual</p>
+    <div class="legend">
+      <span><span class="legend-dot" style="background:#3266ad;"></span>Frecuencia</span>
+    </div>
+    <div style="position: relative; width: 100%; height: 200px;">
+      <canvas id="incomeChart" role="img" aria-label="Gráfico de barras de ingresos. Sin ingreso es la categoría más común, seguida de menos de 10000 rupias.">Sin ingreso es la categoría más común, seguida de menos de Rs.10000.</canvas>
+    </div>
+  </div>
+  <div class="chart-block">
+    <p class="section-title">Distribución de los 3 grupos</p>
+    <div class="legend">
+      <span><span class="legend-dot" style="background:#3266ad;"></span>Grupo 0 — 38.9%</span>
+      <span><span class="legend-dot" style="background:#73726c;"></span>Grupo 1 — 35.1%</span>
+      <span><span class="legend-dot" style="background:#1d9e75;"></span>Grupo 2 — 26%</span>
+    </div>
+    <div style="position: relative; width: 100%; height: 200px;">
+      <canvas id="clusterChart" role="img" aria-label="Gráfico de torta con distribución de grupos. Grupo 0 representa el 38.9%, Grupo 1 el 35.1% y Grupo 2 el 26%.">Grupo 0: 38.9%, Grupo 1: 35.1%, Grupo 2: 26%.</canvas>
+    </div>
+  </div>
+</div>
+
+<p class="section-title">Perfil de cada grupo y estrategia recomendada</p>
+<div class="clusters">
+  <div class="cluster-card">
+    <span class="cluster-badge" style="background:#e6f1fb; color:#0c447c;">Grupo 0 · 38.9%</span>
+    <p class="cluster-name">Jóvenes estudiantes</p>
+    <p class="cluster-detail">Edad promedio: 21–23 años</p>
+    <p class="cluster-detail">Solteros, sin ingreso propio</p>
+    <p class="cluster-detail">Zona comercial · Familia pequeña</p>
+    <div class="cluster-benefit" style="background:#e6f1fb; color:#0c447c;">Beneficio: cupón por primera compra</div>
+  </div>
+  <div class="cluster-card">
+    <span class="cluster-badge" style="background:#eaf3de; color:#27500a;">Grupo 1 · 35.1%</span>
+    <p class="cluster-name">Adultos empleados</p>
+    <p class="cluster-detail">Edad promedio: 25–30 años</p>
+    <p class="cluster-detail">Casados, ingreso medio</p>
+    <p class="cluster-detail">Zona mixta · Familia mediana</p>
+    <div class="cluster-benefit" style="background:#eaf3de; color:#27500a;">Beneficio: promociones en productos top</div>
+  </div>
+  <div class="cluster-card">
+    <span class="cluster-badge" style="background:#faeeda; color:#633806;">Grupo 2 · 26%</span>
+    <p class="cluster-name">Adultos mayores / zonas residenciales</p>
+    <p class="cluster-detail">Edad promedio: 28–35 años</p>
+    <p class="cluster-detail">Casados, ingreso alto</p>
+    <p class="cluster-detail">Zona residencial · Familia grande</p>
+    <div class="cluster-benefit" style="background:#faeeda; color:#633806;">Oportunidad: segmento sub-utilizado</div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+const gridColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
+const textColor = isDark ? '#a0a09a' : '#73726c';
+
+new Chart(document.getElementById('ageChart'), {
+  type: 'bar',
+  data: {
+    labels: ['20','21','22','23','24','25','26','27','28','29','30+'],
+    datasets: [{
+      label: 'Clientes',
+      data: [18, 32, 48, 62, 45, 38, 28, 22, 18, 14, 63],
+      backgroundColor: '#3266ad',
+      borderRadius: 3
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 11 } } },
+      y: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 11 } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('occChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Estudiantes', 'Empleados', 'Independientes', 'Amas de casa'],
+    datasets: [{
+      data: [51.5, 27.8, 13.4, 7.3],
+      backgroundColor: ['#3266ad', '#73726c', '#d85a30', '#1d9e75'],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    cutout: '60%'
+  }
+});
+
+new Chart(document.getElementById('incomeChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Sin ingreso', '< Rs.10K', 'Rs.10K–25K', 'Rs.25K–50K', '> Rs.50K'],
+    datasets: [{
+      label: 'Clientes',
+      data: [142, 98, 72, 48, 28],
+      backgroundColor: '#3266ad',
+      borderRadius: 3
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 10 }, maxRotation: 30 } },
+      y: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 11 } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('clusterChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Grupo 0', 'Grupo 1', 'Grupo 2'],
+    datasets: [{
+      data: [38.9, 35.1, 26],
+      backgroundColor: ['#3266ad', '#73726c', '#1d9e75'],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    cutout: '60%'
+  }
+});
+</script>
+</body>
+</html>
+
