@@ -2,7 +2,7 @@
 
 Análisis de datos y segmentación de clientes de una empresa de pedidos de alimentos en línea, usando K-Means clustering para apoyar la toma de decisiones estratégicas del negocio.
 
-🔗 **[Ver demo en vivo →](https://vercel.com/giselle-leguizamo-s-projects/ml-analisis-pedidos-onlinefoods/9LnrGkuFTrb6oKXJkCV1ZXxSJzi8)**
+🔗 **[Ver demo en vivo →](https://ml-analisis-pedidos-onlinefoods-kkzzoumgg.vercel.app/)**
 
 ---
 
